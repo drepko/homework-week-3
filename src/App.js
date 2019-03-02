@@ -39,10 +39,12 @@ class App extends Component {
   }  
 
   handleSubmit = (event) => {
+    const object = data[this.state.value]
+    object.name = this.state.value
     event.preventDefault()
     this.props.dispatch({
       type: 'ADD_MODEL',
-      payload: data[this.state.value]
+      payload: object
       
     })
     

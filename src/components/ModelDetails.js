@@ -5,12 +5,13 @@ export default function Modeldetails(props){
    
     return(
     <div>
-            {detail.map(one => 
-           <ul>
-            <li>{one.manufacturer}</li>
-            <li>{one.year}</li>
-            <li>{one.origin}</li>
-           </ul>
+        {detail.map(one => 
+        <ul>
+            <li>{`Name: ${one.name}`}</li>   
+            <li>{`Manufacturer: ${one.manufacturer}`}</li>
+            <li>{`Year: ${one.year}`}</li>
+            <li>{`Origin: ${one.origin}`}</li>
+        </ul>
            )}
     </div>
 
