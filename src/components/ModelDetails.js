@@ -1,12 +1,12 @@
 import * as React from 'react'
 
 export default function Modeldetails(props){
-    const detail = props.detail
-   
+
+    const detail = props.detail   
     return(
     <div>
         {detail.map(one => 
-        <ul>
+        <ul key = {one.name}>
             <li>{`Name: ${one.name}`}</li>   
             <li>{`Manufacturer: ${one.manufacturer}`}</li>
             <li>{`Year: ${one.year}`}</li>

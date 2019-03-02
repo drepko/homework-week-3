@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import ModelDetails from './ModelDetails'
 
 class ModelDetailsContainer extends React.Component {
+
     render () {
         const detail = this.props.addmodel
-
         return <ModelDetails detail={detail}/>
     }
 }
