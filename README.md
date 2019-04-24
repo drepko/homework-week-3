@@ -1,68 +1,124 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Homework week 3
 
-## Available Scripts
+This is the result of the third homework assignment of the Codaisseur Academy. You can find the homework description below.
 
-In the project directory, you can run:
+### Requirements
 
-### `npm start`
+1. Make sure to add/enable the Redux Developer Tools in your `store.js`.
+1. Clean up the provided `App` component by removing everything inside the `<div className="App">` element.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Step 1 - Render some elements
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+The following references should have enough information to complete this step:
+1. [Introducing JSX](https://reactjs.org/docs/introducing-jsx.html)
+1. [Rendering Elements](https://reactjs.org/docs/rendering-elements.html)
 
-### `npm test`
+### Requirements
+1. Write all the JSX and JavaScript for this step inside the `App.js`. Do not create a new module.
+1. Use the following JavaScript data object (containing home computer models), render a `<select>` element which contains all the items in the object as `<option>` elements. Actually use the data in the object and _do not hard-code the HTML into your render method._
+1. The `<option>` elements should have a label with both the name of the model and the year. 
+1. The elements should also have a `value` attribute consisting of only the name. 
+1. Add an extra default `<option>` element at the beginning (see the expected HTML below).
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```js
+const data = {
+  "Ivel Z3": {
+    manufacturer: "Ivasim",
+    year: 1969,
+    origin: "Croatia"
+  },
+  "Bally Astrocade": {
+    manufacturer: "Bally Consumer Products",
+    year: 1977,
+    origin: "USA"
+  },
+  "Sord M200 Smart Home Computer": {
+    manufacturer: "Sord Computer Corporation",
+    year: 1971,
+    origin: "Japan"
+  },
+  "Commodore 64": {
+    manufacturer: "Commodore",
+    year: 1982,
+    origin: "USA"
+  }
+}
+```
 
-### `npm run build`
+When inspecting the resulting HTML with DevTools, it should look like this:
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```HTML
+<!-- Expected Output -->
+<select>
+    <option value="">-- pick a model --</option>
+    <option value="Ivel Z3">Ivel Z3 (1969)</option>
+    <option value="Bally Astrocade">Bally Astrocade (1977)</option>
+    <option value="Sord M200 Smart Home Computer">Sord M200 Smart Home Computer (1971)</option>
+    <option value="Commodore 64">Commodore 64 (1982)</option>
+</select>
+```
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+_Notice the year in parentheses_
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Step 2 - Event handling and local state
 
-### `npm run eject`
+Now turn the `<select>` element into a controlled component.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Add an event handler to your `<select>` element, so that whenever the value of the drop-down changes we run a method called `updateSelection`.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Add the `updateSelection` method to the `App` component class. Inside the method save the selected value in the **local state**. Use these references, if necessary:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. [State and Lifecycle](https://reactjs.org/docs/state-and-lifecycle.html)
+1. [Handling Events](https://reactjs.org/docs/handling-events.html)
+1. [Forms](https://reactjs.org/docs/forms.html) <-- especially this one
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Requirements
 
-## Learn More
+At the end of this step, changing the selected item of the drop-down should update the `App` component's local state and store the selected value. Also, the value of the `<select>` element should be read from the local state.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Step 3 - Redux Actions
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Now that we can select a computer model from the drop-down, you will add a button which adds the selected item to an array in the Redux state.
 
-### Code Splitting
+Your initial Redux state should be an empty array `[]`. Look at [this section of the reader for an example](https://readest.codaisseur.com/courses/intermediate-bootcamp/09-redux/02-redux/05-array-reducer). Define a new action type which has, as its payload, the object containing all the data for the selected computer model. This is what it should look like from your Redux Dev Tools:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+![action details](https://cd.sseu.re/React_App_-_Google_Chrome_2018-06-20_11.14.58.png)
 
-### Analyzing the Bundle Size
+Implement the reducer so that it handles the action and adds the selected data to the state. The state will look like this after several items have been added:
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+![state after 3 additions](https://cd.sseu.re/React_App_-_Google_Chrome_2018-06-20_11.16.40.png)
 
-### Making a Progressive Web App
+## Step 4 - Reading from the Redux state
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+If you haven't already: define a `mapStateToProps` function. It should return an object containing the list of selected items (which it gets from the Redux state). Make sure you use it while connecting your `App` component to Redux.
 
-### Advanced Configuration
+Now that you have the data as props, create a component in your project responsible for rendering each of the items.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+### Requirements
+1. Connect your `App` component to Redux.
+1. Use a `mapStateToProps` function to select the necessary data from the Redux state.
+1. The component used to render the item details should be called `ModelDetails`. The component is responsible for rendering a _single_ item.
+1. You will have to use `connect` from `react-redux` on one of your components. However, do **NOT** connect the `ModelDetails` component, it should remain "dumb" and only contain UI code.
+1. Add `propTypes` that check/validate whether the name, manufacturer, year, and origin are correctly being passed to `ModelDetails`.
 
-### Deployment
+_This is an example of what the HTML output should look like:_
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+```html
+<div>
+  <ul>
+    <li>Name: Ivel Z3</li>
+    <li>Manufacturer: Ivasim</li>
+    <li>Year: 1969</li>
+    <li>Origin: Croatia</li>
+  </ul>
+</div>
+```
 
-### `npm run build` fails to minify
+_Notice that the name is expected as a prop. However, the name property doesn't exist in each individual data object. Try adding it to the data in the Redux state._
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## Final Result
+
+Will look and behave something like this:
+
+![end result](https://cd.sseu.re/extra-assignment2.gif)
